@@ -1,0 +1,25 @@
+/* over ride browser default */
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* use view port relative height to cover page fully */
+body {
+    height: 100vh;
+    width: 100vw;
+}
+
+/* include border and padding in element width & height */
+* {
+    box-sizing: border-box;
+}
+
+/* full sized container that fills up the page */
+div.wrapper {
+    height: 100%;
+    width: 100%;
+    background-color: aqua;
+}
+
