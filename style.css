@@ -21,5 +21,6 @@ div.wrapper {
     height: 100%;
     width: 100%;
     background-color: aqua;
+    background-image: url("./Images/pencils-1280558_960_720.jpg");
+    background-size: cover;
 }
-
