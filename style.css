@@ -26,12 +26,12 @@ div.wrapper {
 }
 
 div.container {
-    background-color: blue;
+    background-color: transparent;
     width: 400px;
     height: 500px;
     border-radius: 10px;
     margin: 65px auto;
-    border: 10px solid red;
+    border: 10px solid #fffaf0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -48,7 +48,7 @@ div.container {
 #content {
     width: 95%;
     height: 75%;
-    background-color: springgreen;
+    background-color: transparent;
 }
 
 div.card {
@@ -58,7 +58,32 @@ div.card {
 }
 
 div.card-item {
-    width: 25%;
-    height: 90%;
-    background-color:blanchedalmond ;
-} 
+    height: 95%;
+    background-color: inherit ;
+}
+
+#digits {
+    width: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    column-gap: 20px;
+}
+
+#signs,
+#navigation {
+    width: 15%;
+}
+
+button.numbers {
+    width: 20%;
+    height: 15%;
+    box-shadow: 6px 3px 5px black;
+    background-color: crimson;
+    border-radius: 10px;
+    color: whitesmoke;
+    font-weight: bold;
+    font-size: xx-large;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
