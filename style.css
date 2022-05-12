@@ -20,7 +20,33 @@ body {
 div.wrapper {
     height: 100%;
     width: 100%;
-    background-color: aqua;
     background-image: url("./Images/pencils-1280558_960_720.jpg");
     background-size: cover;
+    display: flex;
+}
+
+div.container {
+    background-color: blue;
+    width: 400px;
+    height: 500px;
+    border-radius: 10px;
+    margin: 65px auto;
+    border: 10px solid red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#display {
+    width: 75%;
+    height: 15%;
+    background-color: antiquewhite;
+    border-radius: 10px;
+}
+
+#content {
+    width: 90%;
+    height: 75%;
+    background-color: springgreen;
 }
