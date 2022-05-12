@@ -39,14 +39,26 @@ div.container {
 }
 
 #display {
-    width: 75%;
+    width: 93%;
     height: 15%;
     background-color: antiquewhite;
     border-radius: 10px;
 }
 
 #content {
-    width: 90%;
+    width: 95%;
     height: 75%;
     background-color: springgreen;
 }
+
+div.card {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+div.card-item {
+    width: 25%;
+    height: 90%;
+    background-color:blanchedalmond ;
+} 
