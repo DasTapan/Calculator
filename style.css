@@ -76,6 +76,14 @@ div.card-item {
     width: 15%;
 }
 
+#signs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    gap: 0px;
+}
+
 button.numbers {
     width: 20%;
     height: 15%;
@@ -85,5 +93,17 @@ button.numbers {
     color: whitesmoke;
     font-weight: bold;
     font-size: xx-large;
+    cursor: pointer;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+button.arithmatic {
+    padding: 15px;
+    border-radius: 50%;
+    border: none;
+    font-size: xx-large;
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: orangered;
+    color: floralwhite;
 }
