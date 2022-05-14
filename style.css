@@ -103,9 +103,9 @@ button.arithmatic {
     border: none;
     font-size: xx-large;
     font-weight: bold;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     background-color: orangered;
     color: floralwhite;
+    cursor: pointer;
 }
 
 #navigation {
@@ -118,4 +118,21 @@ button.arithmatic {
 button.output {
     width: 85%;
     height: 15%;
-} 
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#back-space,
+#square-root,
+#result,#ac {
+    background-color: blue;
+    color: whitesmoke;
+    font-weight: bold;
+    font-size: 20px;
+    box-shadow: 6px 3px 5px black;
+}
+
+#ac {
+    background-color: lawngreen;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
