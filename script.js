@@ -78,7 +78,9 @@ function operate(array) {
 
         //ascii code of html entity &divide    
         case 247:
-            return array[0] / array[2];
+            let ans =  array[0] / array[2];
+            ans = ans.toFixed(3);
+            return Number(ans);
             break;
 
         //ascii code of html entity &times    
