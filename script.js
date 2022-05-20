@@ -10,6 +10,9 @@ let inputArray = [];
 //disable the '=' button untill number is inputed
 result.disabled = true;
 
+//diable selcting opeartor at the beginning
+operatorButtons.forEach(operator => operator.disabled = true);
+
 numberButtons.forEach(number => number.addEventListener('click', function (event) {
     /* monkey patch to clear the dummy display text */
     if (count == 0) {
@@ -18,6 +21,7 @@ numberButtons.forEach(number => number.addEventListener('click', function (event
     displayDiv.textContent += event.target.innerText;
     latestValue += event.target.innerText;
     result.disabled = false;
+    operatorButtons.forEach(operator => operator.disabled = false);
 }));
 
 operatorButtons.forEach(operator => operator.addEventListener('click', function (event) {
@@ -38,7 +42,6 @@ operatorButtons.forEach(operator => operator.addEventListener('click', function 
 }));
 
 result.addEventListener('click', function (event) {
-    console.log('are peleipua');
     let secondNum = Number(latestValue);
     inputArray.push(secondNum);
     let answer = operate(inputArray);
@@ -82,7 +85,7 @@ function operate(array) {
 
         //ascii code of html entity &divide    
         case 247:
-            let ans =  array[0] / array[2];
+            let ans = array[0] / array[2];
             ans = ans.toFixed(3);
             return Number(ans);
             break;
