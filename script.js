@@ -7,6 +7,8 @@ let count = 0;
 let latestValue = '';
 let inputArray = [];
 
+//disable the '=' button untill number is inputed
+result.disabled = true;
 
 numberButtons.forEach(number => number.addEventListener('click', function (event) {
     /* monkey patch to clear the dummy display text */
@@ -15,6 +17,7 @@ numberButtons.forEach(number => number.addEventListener('click', function (event
     } count++;
     displayDiv.textContent += event.target.innerText;
     latestValue += event.target.innerText;
+    result.disabled = false;
 }));
 
 operatorButtons.forEach(operator => operator.addEventListener('click', function (event) {
@@ -35,6 +38,7 @@ operatorButtons.forEach(operator => operator.addEventListener('click', function 
 }));
 
 result.addEventListener('click', function (event) {
+    console.log('are peleipua');
     let secondNum = Number(latestValue);
     inputArray.push(secondNum);
     let answer = operate(inputArray);
