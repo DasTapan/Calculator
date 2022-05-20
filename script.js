@@ -3,6 +3,8 @@ const displayDiv = document.getElementById('display');
 const operatorButtons = document.querySelectorAll('.arithmatic');
 const result = document.getElementById('result');
 const acButton = document.getElementById('ac');
+const navigation = document.getElementById('navigation');
+const navigationButtons = navigation.querySelectorAll('.output');
 let count = 0;
 let latestValue = '';
 let inputArray = [];
@@ -33,11 +35,17 @@ operatorButtons.forEach(operator => operator.addEventListener('click', function 
 
     if (inputArray.length == 3) {
         let ans = operate(inputArray);
-        displayDiv.textContent = String(ans) + event.target.innerText;
-        inputArray = [];
-        inputArray.push(ans);
-        inputArray.push(operator.innerText.charCodeAt());
-        latestValue = '';
+        //check for division by zero
+        if (typeof ans == 'string') {
+            displayDiv.textContent = ans;
+            enableOnlyACbutton();
+        } else {
+            displayDiv.textContent = String(ans) + event.target.innerText;
+            inputArray = [];
+            inputArray.push(ans);
+            inputArray.push(operator.innerText.charCodeAt());
+            latestValue = '';
+        }
     }
 }));
 
@@ -45,17 +53,20 @@ result.addEventListener('click', function (event) {
     let secondNum = Number(latestValue);
     inputArray.push(secondNum);
     let answer = operate(inputArray);
+    if (typeof answer == 'string') enableOnlyACbutton();
     displayDiv.textContent = String(answer);
     latestValue = answer;
     inputArray = [];
 })
 
 acButton.addEventListener('click', () => {
+    console.log('khi khi');
     count = 0;
     displayDiv.textContent = '';
     displayDiv.textContent = '0';
     latestValue = '';
     inputArray = [];
+    reEnableValidButtons();
 })
 
 function splitInput(string) {
@@ -85,9 +96,14 @@ function operate(array) {
 
         //ascii code of html entity &divide    
         case 247:
-            let ans = array[0] / array[2];
-            ans = ans.toFixed(3);
-            return Number(ans);
+            let ans = 0;
+            if (array[2] == 0) {
+                return 'Are Murkha!';
+            } else {
+                ans = array[0] / array[2];
+                ans = ans.toFixed(3);
+                return Number(ans);
+            }
             break;
 
         //ascii code of html entity &times    
@@ -95,4 +111,21 @@ function operate(array) {
             return array[0] * array[2];
             break;
     }
+}
+
+//only AC button valid to RESET after divison by zero
+function enableOnlyACbutton() {
+    numberButtons.forEach(number => number.disabled = true);
+    operatorButtons.forEach(operator => operator.disabled = true);
+    navigationButtons.forEach(navButton => {
+        if (!(navButton.getAttribute('id') == 'ac')) navButton.disabled = true;
+    })
+}
+
+function reEnableValidButtons() {
+    numberButtons.forEach(number => number.disabled = false);
+    operatorButtons.forEach(operator => operator.disabled = true);
+    navigationButtons.forEach(navButton => {
+        if (!(navButton.getAttribute('id') == 'ac')) navButton.disabled = true;
+    });
 }
