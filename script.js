@@ -4,11 +4,9 @@ const operatorButtons = document.querySelectorAll('.arithmatic');
 const result = document.getElementById('result');
 const acButton = document.getElementById('ac');
 let count = 0;
+let latestValue = '';
 let inputArray = [];
 
-// console.log(numberButtons);
-// console.log(displayDiv);
-// console.log(operatorButtons);
 
 numberButtons.forEach(number => number.addEventListener('click', function (event) {
     /* monkey patch to clear the dummy display text */
@@ -16,56 +14,55 @@ numberButtons.forEach(number => number.addEventListener('click', function (event
         displayDiv.textContent = '';
     } count++;
     displayDiv.textContent += event.target.innerText;
-    console.log(`display:${displayDiv.textContent}`);
+    latestValue += event.target.innerText;
 }));
 
 operatorButtons.forEach(operator => operator.addEventListener('click', function (event) {
     displayDiv.textContent += event.target.innerText;
-    console.log(`withOperator: ${displayDiv.textContent}`);
-    makeNumber(displayDiv.textContent);
+    latestValue += event.target.innerText;
+
+    splitInput(latestValue);
     //check for existing pair of numbers
+
     if (inputArray.length == 3) {
         let ans = operate(inputArray);
-        displayDiv.textContent = ans;
+        displayDiv.textContent = String(ans) + event.target.innerText;
         inputArray = [];
         inputArray.push(ans);
         inputArray.push(operator.innerText.charCodeAt());
-        count = 0;
+        latestValue = '';
     }
-    console.table(inputArray);
 }));
 
 result.addEventListener('click', function (event) {
-    let secondNum = Number(displayDiv.textContent);
+    let secondNum = Number(latestValue);
     inputArray.push(secondNum);
     let answer = operate(inputArray);
-    displayDiv.textContent = answer;
+    displayDiv.textContent = String(answer);
+    latestValue = answer;
     inputArray = [];
-    console.log(`array: ${inputArray}`);
 })
 
 acButton.addEventListener('click', () => {
     count = 0;
     displayDiv.textContent = '';
+    displayDiv.textContent = '0';
+    latestValue = '';
+    inputArray = [];
 })
 
-function makeNumber(string) {
-    console.table(inputArray);
+function splitInput(string) {
     if (inputArray.length == 2) {
-        console.log('aichi');
         let lastNum = Number(string.slice(0, string.length - 1));
         inputArray.push(lastNum);
     } else {
-        console.log('pasichi');
         let firstNum = Number(string.slice(0, string.length - 1));
         inputArray.push(firstNum);
         let operator = string.slice(string.length - 1).charCodeAt();
         inputArray.push(operator);
-        //clean the display
-        displayDiv.textContent = '';
+        //clear the latest value
+        latestValue = '';
     }
-    // console.log(`display: ${displayDiv.textContent}`);
-    console.table(inputArray);
 };
 
 function operate(array) {
