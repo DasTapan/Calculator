@@ -67,7 +67,7 @@ div.card {
 
 div.card-item {
     height: 95%;
-    background-color: inherit ;
+    background-color: inherit;
 }
 
 button:hover {
@@ -136,7 +136,8 @@ button.output {
 
 #back-space,
 #square-root,
-#result,#ac {
+#result,
+#ac {
     background-color: blue;
     color: whitesmoke;
     font-weight: bold;
@@ -148,4 +149,3 @@ button.output {
     background-color: lawngreen;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
-

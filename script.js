@@ -1,10 +1,12 @@
-const numberButtons = document.querySelectorAll('.numbers');
 const displayDiv = document.getElementById('display');
+const navigation = document.getElementById('navigation');
+const numberButtons = document.querySelectorAll('.numbers');
 const operatorButtons = document.querySelectorAll('.arithmatic');
 const result = document.getElementById('result');
 const acButton = document.getElementById('ac');
-const navigation = document.getElementById('navigation');
 const navigationButtons = navigation.querySelectorAll('.output');
+const allButtons = document.querySelectorAll('button');
+
 let count = 0;
 let latestValue = '';
 let inputArray = [];
@@ -12,7 +14,7 @@ let inputArray = [];
 //disable the '=' button untill number is inputed
 result.disabled = true;
 
-//diable selcting opeartor at the beginning
+//diable selcting opeartor untill number is inputed
 operatorButtons.forEach(operator => operator.disabled = true);
 
 numberButtons.forEach(number => number.addEventListener('click', function (event) {
@@ -37,6 +39,10 @@ operatorButtons.forEach(operator => operator.addEventListener('click', function 
         let ans = operate(inputArray);
         //check for division by zero
         if (typeof ans == 'string') {
+            //disable hover effect on all buttons except AC if divided by zero
+            allButtons.forEach(button => {
+                if (!(button.getAttribute('id') == 'ac')) button.style.transform = 'none';
+            })
             displayDiv.textContent = ans;
             enableOnlyACbutton();
         } else {
@@ -53,7 +59,13 @@ result.addEventListener('click', function (event) {
     let secondNum = Number(latestValue);
     inputArray.push(secondNum);
     let answer = operate(inputArray);
-    if (typeof answer == 'string') enableOnlyACbutton();
+    if (typeof answer == 'string') {
+        //disable hover effect on all buttons except AC if divided by zero
+        allButtons.forEach(button => {
+            if (!(button.getAttribute('id') == 'ac')) button.style.transform = 'none';
+        })
+        enableOnlyACbutton();
+    }
     displayDiv.textContent = String(answer);
     latestValue = answer;
     inputArray = [];
@@ -67,6 +79,10 @@ acButton.addEventListener('click', () => {
     latestValue = '';
     inputArray = [];
     reEnableValidButtons();
+    //re-enable hover effect on buttons
+    allButtons.forEach(button => {
+        if (!(button.getAttribute('id') == 'ac')) button.style.transform = '';
+    })
 })
 
 function splitInput(string) {
