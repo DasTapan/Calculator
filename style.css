@@ -70,6 +70,10 @@ div.card-item {
     background-color: inherit ;
 }
 
+button:hover {
+    transform: scale3d(1.1, 1.1, 1.1);
+}
+
 #digits {
     width: 60%;
     display: flex;
