@@ -114,7 +114,7 @@ function operate(array) {
         case 247:
             let ans = 0;
             if (array[2] == 0) {
-                return 'Are Murkha!';
+                return 'Self Destroying...';
             } else {
                 ans = array[0] / array[2];
                 ans = ans.toFixed(3);
