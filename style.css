@@ -29,7 +29,7 @@ div.calculator {
     width: 260px;
     border-radius: 10px;
     padding-top: 35px;
-    background-color: purple;
+    background-color: #1b1b1c;
 
     display: flex;
     flex-direction: column;
@@ -41,7 +41,9 @@ div.display-div {
     height: 75px;
     width: 95%;
     border-radius: 5px;
-    background-color: white;
+    /* border: 2px solid red; */
+
+    box-shadow: inset 2.3px 2.3px black, inset -2.3px -2.3px black;
 }
 
 div.button-div {
