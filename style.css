@@ -77,8 +77,8 @@ div.button-div {
 }
 
 button {
-    height: 57px;
-    width: 57px;
+    height: calc((100% - 20px) / 5);
+    width: calc((100% - 10px) / 3);
     border: 1px solid red;
 }
 
