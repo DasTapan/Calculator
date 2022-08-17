@@ -59,11 +59,11 @@ div.button-div {
     width: 75%;
     height: 100%;
     background-color: blue;
-    border: 1px solid white;
 
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
+    --button-width: calc((100% - 10px) / 3);
 }
 
 .group-2 {
@@ -78,12 +78,12 @@ div.button-div {
 
 button {
     height: calc((100% - 20px) / 5);
-    width: calc((100% - 10px) / 3);
+    width: var(--button-width);
     border: 1px solid red;
 }
 
 button#decimal {
-    width: 120px;
+    width: calc(100% - var(--button-width) - 5px);
 }
 
 div.tag-line {
