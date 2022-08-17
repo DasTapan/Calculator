@@ -63,27 +63,44 @@ div.button-div {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
+
     --button-width: calc((100% - 10px) / 3);
+    --button-height: calc((100% - 20px) / 5);
 }
 
 .group-2 {
     width: 25%;
     height: 100%;
     background-color: orange;
-    border: 1px solid green;
+    /* border: 1px solid green; */
+    padding-left: 5px;
 
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    row-gap: 5px;
+
+    --button-heightB: calc((100% - 15px) / 5);
 }
 
-button {
-    height: calc((100% - 20px) / 5);
+.group-1 button {
+    height: var(--button-height);
     width: var(--button-width);
     border: 1px solid red;
 }
 
 button#decimal {
     width: calc(100% - var(--button-width) - 5px);
+}
+
+.group-2 button {
+    border: 1px solid red;
+    height: var(--button-heightB);
+}
+
+button#equal {
+    /* height: calc(100% - var(--button-heightB) - 5px); */
+    /* transform: scaleY(1.7 ); */
+    flex-grow: 1;
 }
 
 div.tag-line {
