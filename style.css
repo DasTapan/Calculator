@@ -29,6 +29,12 @@ div.container {
     background-size: cover;
 }
 
+div.display-div {
+    text-align: right;
+    padding: 10px 15px;
+    font-size: 1.3rem;
+}
+
 div.calculator {
     height: 475px;
     width: 260px;
@@ -133,8 +139,12 @@ button#equal {
     transform: translateY(4px);
 }
 
-#ac,#divison,#multi,#delete,
-#substract,#add {
+#ac,
+#divison,
+#multi,
+#delete,
+#substract,
+#add {
     color: #F0D719;
 }
 

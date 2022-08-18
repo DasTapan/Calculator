@@ -1,4 +1,17 @@
 let answer = 0;
+let fuse = false;
+
+const displayDiv = document.querySelector('.display-div');
+const allButtons = document.querySelectorAll('.button-input');
+
+allButtons.forEach(button => button.addEventListener('click', function() {
+    console.log(`Pressed key: ${button.getAttribute('id')}`);
+    if(!fuse) {
+        displayDiv.textContent = button.textContent;
+        fuse = true;
+    } else displayDiv.textContent += button.textContent;
+
+}))
 
 function operate(firstNumber, operation, secondNumber) {
     switch (operation) {
