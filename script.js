@@ -2,6 +2,7 @@ let answer = 0;
 let fuse = false;
 let underCharacterLimit = true;
 let inputLength = 0;
+// let nonDigitButtonBlock = false;
 
 const displayDiv = document.querySelector('.display-div');
 const allButtons = document.querySelectorAll('.button-input');
@@ -14,11 +15,11 @@ nonDigitButtons.forEach(button => {
     button.classList.remove('click-effect');
 });
 
-allButtons.forEach(button => button.addEventListener('click', function () {
+allButtons.forEach(button => button.addEventListener('click', function (e) {
     console.log(`Pressed key: ${button.getAttribute('id')}`);
     // console.log(`Prevailing Class: ${button.getAttribute('class')}`);
 
-    if (checkInputLength()) {
+    if (checkInputLength(e)) {
         if (!fuse) {
             displayDiv.textContent = button.textContent;
             fuse = true;
@@ -40,14 +41,27 @@ allButtons.forEach(button => button.addEventListener('click', function () {
             inputLength = 13;
         }
     }
-
 }))
 
-function checkInputLength() {
+function checkInputLength(e) {
+    preventMultiOperator(e);
+
     if (inputLength < 14) {
         inputLength++;
         return true;
     } else return false;
+}
+
+function preventMultiOperator(e) {
+    if (e.target.className.match(/ non-digit /)) {
+        console.log('multi operator prevented');
+        nonDigitButtons.forEach(button => button.disabled = true);
+    }
+
+    if (e.target.className.match(/ digit-button/)) {
+        console.log('operator puni leutile');
+        nonDigitButtons.forEach(button => button.disabled = false);
+    }
 }
 
 function operate(firstNumber, operation, secondNumber) {
