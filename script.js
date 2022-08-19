@@ -3,10 +3,17 @@ let fuse = false;
 
 const displayDiv = document.querySelector('.display-div');
 const allButtons = document.querySelectorAll('.button-input');
+const nonDigitButtons = document.querySelectorAll('.non-digit');
 
-allButtons.forEach(button => button.addEventListener('click', function() {
+//disable non-digit keys until a digit is clicked
+nonDigitButtons.forEach(button => {
+    button.disabled = true;
+    button.classList.remove('click-effect');
+});
+
+allButtons.forEach(button => button.addEventListener('click', function () {
     console.log(`Pressed key: ${button.getAttribute('id')}`);
-    if(!fuse) {
+    if (!fuse) {
         displayDiv.textContent = button.textContent;
         fuse = true;
     } else displayDiv.textContent += button.textContent;

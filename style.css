@@ -135,7 +135,11 @@ button#equal {
     cursor: pointer;
 }
 
-.button-div button:active {
+/* .button-div button:active {
+    transform: translateY(4px);
+} */
+
+.click-effect:active {
     transform: translateY(4px);
 }
 
