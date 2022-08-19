@@ -1,8 +1,11 @@
 let answer = 0;
 let fuse = false;
+let underCharacterLimit = true;
+let inputLength = 0;
 
 const displayDiv = document.querySelector('.display-div');
 const allButtons = document.querySelectorAll('.button-input');
+const digitButtons = document.querySelectorAll('.digit-button');
 const nonDigitButtons = document.querySelectorAll('.non-digit');
 
 //disable non-digit keys until a digit is clicked
@@ -13,12 +16,39 @@ nonDigitButtons.forEach(button => {
 
 allButtons.forEach(button => button.addEventListener('click', function () {
     console.log(`Pressed key: ${button.getAttribute('id')}`);
-    if (!fuse) {
-        displayDiv.textContent = button.textContent;
-        fuse = true;
-    } else displayDiv.textContent += button.textContent;
+    // console.log(`Prevailing Class: ${button.getAttribute('class')}`);
+
+    if (checkInputLength()) {
+        if (!fuse) {
+            displayDiv.textContent = button.textContent;
+            fuse = true;
+
+            nonDigitButtons.forEach(button => {
+                button.disabled = false;
+                button.classList.add('click-effect');
+            })
+        } else displayDiv.textContent += button.textContent;
+
+    } else {
+        console.log('Overflow reached');
+        digitButtons.forEach(button => button.disabled = true);
+        displayDiv.textContent += button.textContent;
+
+        if (/ non-digit /.test(button.className)) {
+            console.log('unlocked');
+            digitButtons.forEach(button => button.disabled = false);
+            inputLength = 13;
+        }
+    }
 
 }))
+
+function checkInputLength() {
+    if (inputLength < 14) {
+        inputLength++;
+        return true;
+    } else return false;
+}
 
 function operate(firstNumber, operation, secondNumber) {
     switch (operation) {
