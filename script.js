@@ -11,6 +11,7 @@ const allButtons = document.querySelectorAll('.button-input');
 const digitButtons = document.querySelectorAll('.digit-button');
 const nonDigitButtons = document.querySelectorAll('.non-digit');
 const resultButton = document.querySelector('#equal');
+const acButton = document.querySelector('#ac');
 
 //disable non-digit keys until a digit is clicked
 nonDigitButtons.forEach(button => {
@@ -69,7 +70,23 @@ resultButton.addEventListener('click', function () {
         console.log(`Answer is: ${answer}`);
         displayDiv.textContent = answer;
     }
-    else console.log('akala kusmanda');
+    else {
+        displayDiv.textContent = displayDiv.textContent.substring(0, displayDiv.textContent.length - 1);
+        console.log('akala kusmanda');
+    }
+})
+
+acButton.addEventListener('click', function () {
+    answer = 0;
+    fuse = false;
+    underCharacterLimit = true;
+    inputLength = 0;
+    dummyValueHolder = '';
+    firstNumber = 0;
+    secondNumber = 0;
+    operator = '';
+
+    displayDiv.textContent = 0;
 })
 
 function checkInput(e) {
@@ -82,12 +99,12 @@ function checkInput(e) {
 }
 
 function preventMultiOperator(e) {
-    if (e.target.className.match(/ non-digit /)) {
+    if (/ non-digit /.test(e.target.className)) {
         // console.log('multi operator prevented');
         nonDigitButtons.forEach(button => button.disabled = true);
     }
 
-    if (e.target.className.match(/ digit-button/)) {
+    if (/ digit-button/.test(e.target.className)) {
         // console.log('operator puni leutile');
         nonDigitButtons.forEach(button => button.disabled = false);
     }
