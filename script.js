@@ -2,6 +2,9 @@ let answer = 0;
 let fuse = false;
 let underCharacterLimit = true;
 let inputLength = 0;
+let dummyValueHolder = '';
+let firstNumber, secondNumber = 0;
+let operator = '';
 
 const displayDiv = document.querySelector('.display-div');
 const allButtons = document.querySelectorAll('.button-input');
@@ -47,6 +50,19 @@ resultButton.addEventListener('click', function () {
     console.log('banaste dakila gaja');
     if (checkExpression()) {
         console.log('mo bhai munda re suna kalasa');
+        dummyValueHolder = displayDiv.textContent.substring(0, displayDiv.textContent.length-1);
+        console.log(`Eithu haba khela: ${dummyValueHolder}`);
+        const charArr = dummyValueHolder.split(/[+-\/*]/);
+        console.table(charArr);
+
+        firstNumber = + charArr[0];
+        let operatorPositionIndex = 0;
+        operatorPositionIndex = dummyValueHolder.search(/[+-\/*]/);
+        operator = dummyValueHolder.charAt(operatorPositionIndex);
+        secondNumber = + charArr[1];
+        console.log(`first number: ${firstNumber}`);
+        console.log(`operator: ${operator}`);
+        console.log(`second number: ${secondNumber}`);
     }
     else console.log('akala kusmanda');
 })
@@ -62,12 +78,12 @@ function checkInput(e) {
 
 function preventMultiOperator(e) {
     if (e.target.className.match(/ non-digit /)) {
-        console.log('multi operator prevented');
+        // console.log('multi operator prevented');
         nonDigitButtons.forEach(button => button.disabled = true);
     }
 
     if (e.target.className.match(/ digit-button/)) {
-        console.log('operator puni leutile');
+        // console.log('operator puni leutile');
         nonDigitButtons.forEach(button => button.disabled = false);
     }
 }
