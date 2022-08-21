@@ -2,12 +2,12 @@ let answer = 0;
 let fuse = false;
 let underCharacterLimit = true;
 let inputLength = 0;
-// let nonDigitButtonBlock = false;
 
 const displayDiv = document.querySelector('.display-div');
 const allButtons = document.querySelectorAll('.button-input');
 const digitButtons = document.querySelectorAll('.digit-button');
 const nonDigitButtons = document.querySelectorAll('.non-digit');
+const resultButton = document.querySelector('#equal');
 
 //disable non-digit keys until a digit is clicked
 nonDigitButtons.forEach(button => {
@@ -19,7 +19,7 @@ allButtons.forEach(button => button.addEventListener('click', function (e) {
     console.log(`Pressed key: ${button.getAttribute('id')}`);
     // console.log(`Prevailing Class: ${button.getAttribute('class')}`);
 
-    if (checkInputLength(e)) {
+    if (checkInput(e)) {
         if (!fuse) {
             displayDiv.textContent = button.textContent;
             fuse = true;
@@ -43,7 +43,15 @@ allButtons.forEach(button => button.addEventListener('click', function (e) {
     }
 }))
 
-function checkInputLength(e) {
+resultButton.addEventListener('click', function () {
+    console.log('banaste dakila gaja');
+    if (checkExpression()) {
+        console.log('mo bhai munda re suna kalasa');
+    }
+    else console.log('akala kusmanda');
+})
+
+function checkInput(e) {
     preventMultiOperator(e);
 
     if (inputLength < 14) {
@@ -62,6 +70,18 @@ function preventMultiOperator(e) {
         console.log('operator puni leutile');
         nonDigitButtons.forEach(button => button.disabled = false);
     }
+}
+
+function checkExpression() {
+    let currentExpression = displayDiv.textContent;
+    let expressionLength = currentExpression.length;
+    currentExpression = currentExpression.substring(0, expressionLength - 1);
+
+    console.log(`Current expression: ${displayDiv.textContent}`);
+    console.log(`Dekha re toka: ${currentExpression}`);
+
+    if (/[*+\/-]/.test(currentExpression)) return true;
+    else return false;
 }
 
 function operate(firstNumber, operation, secondNumber) {
