@@ -50,19 +50,24 @@ resultButton.addEventListener('click', function () {
     console.log('banaste dakila gaja');
     if (checkExpression()) {
         console.log('mo bhai munda re suna kalasa');
-        dummyValueHolder = displayDiv.textContent.substring(0, displayDiv.textContent.length-1);
+        dummyValueHolder = displayDiv.textContent.substring(0, displayDiv.textContent.length - 1);
         console.log(`Eithu haba khela: ${dummyValueHolder}`);
         const charArr = dummyValueHolder.split(/[+-\/*]/);
         console.table(charArr);
 
-        firstNumber = + charArr[0];
         let operatorPositionIndex = 0;
         operatorPositionIndex = dummyValueHolder.search(/[+-\/*]/);
+
         operator = dummyValueHolder.charAt(operatorPositionIndex);
+        firstNumber = + charArr[0];
         secondNumber = + charArr[1];
         console.log(`first number: ${firstNumber}`);
         console.log(`operator: ${operator}`);
         console.log(`second number: ${secondNumber}`);
+
+        answer = operate(firstNumber, operator, secondNumber);
+        console.log(`Answer is: ${answer}`);
+        displayDiv.textContent = answer;
     }
     else console.log('akala kusmanda');
 })
@@ -101,29 +106,31 @@ function checkExpression() {
 }
 
 function operate(firstNumber, operation, secondNumber) {
+    let result = 0;
     switch (operation) {
         case '+':
-            answer = add(firstNumber, secondNumber);
-            console.log(answer);
+            result = add(firstNumber, secondNumber);
+            console.log(result);
             break;
 
         case '-':
-            answer = sub(firstNumber, secondNumber);
-            console.log(answer);
+            result = sub(firstNumber, secondNumber);
+            console.log(result);
             break;
 
         case '/':
-            answer = div(firstNumber, secondNumber);
-            console.log(answer);
+            result = div(firstNumber, secondNumber);
+            console.log(result);
             break;
 
         case '*':
-            answer = multi(firstNumber, secondNumber);
-            console.log(answer);
+            result = multi(firstNumber, secondNumber);
+            console.log(result);
 
         default:
             break;
     }
+    return result;
 }
 
 function add(a, b) {
