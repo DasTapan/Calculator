@@ -5,6 +5,7 @@ let inputLength = 0;
 let dummyValueHolder = '';
 let firstNumber, secondNumber = 0;
 let operator = '';
+let operatorCount = 0;
 
 const displayDiv = document.querySelector('.display-div');
 const allButtons = document.querySelectorAll('.button-input');
@@ -12,6 +13,7 @@ const digitButtons = document.querySelectorAll('.digit-button');
 const nonDigitButtons = document.querySelectorAll('.non-digit');
 const resultButton = document.querySelector('#equal');
 const acButton = document.querySelector('#ac');
+const expressionButtons = document.querySelectorAll('.math-op');
 
 //disable non-digit keys until a digit is clicked
 nonDigitButtons.forEach(button => {
@@ -49,32 +51,75 @@ allButtons.forEach(button => button.addEventListener('click', function (e) {
 
 resultButton.addEventListener('click', function () {
     console.log('banaste dakila gaja');
+    calculate();
+})
+
+expressionButtons.forEach(button => button.addEventListener('click', function (event) {
+    operatorCount++;
+    if (operatorCount == 2) {
+
+        calculate();
+        operatorCount = 1;
+    }
+}))
+
+function calculate() {
     if (checkExpression()) {
-        console.log('mo bhai munda re suna kalasa');
-        dummyValueHolder = displayDiv.textContent.substring(0, displayDiv.textContent.length - 1);
-        console.log(`Eithu haba khela: ${dummyValueHolder}`);
-        const charArr = dummyValueHolder.split(/[+-\/*]/);
-        console.table(charArr);
+        console.log(displayDiv.textContent);
+        let lastChar = displayDiv.textContent.charAt(displayDiv.textContent.length - 1);
+        console.log(`last char: ${lastChar}`);
 
-        let operatorPositionIndex = 0;
-        operatorPositionIndex = dummyValueHolder.search(/[+-\/*]/);
+        if (lastChar == '+' || lastChar == '-' || lastChar == '/' || lastChar == '*') {
+            console.log(displayDiv.textContent);
+            dummyValueHolder = displayDiv.textContent.substring(0, displayDiv.textContent.length - 1);
+            console.log(dummyValueHolder);
+            const charArr = dummyValueHolder.split(/[+-\/*]/);
+            console.table(charArr);
 
-        operator = dummyValueHolder.charAt(operatorPositionIndex);
-        firstNumber = + charArr[0];
-        secondNumber = + charArr[1];
-        console.log(`first number: ${firstNumber}`);
-        console.log(`operator: ${operator}`);
-        console.log(`second number: ${secondNumber}`);
+            let operatorPositionIndex = 0;
+            operatorPositionIndex = dummyValueHolder.search(/[+-\/*]/);
 
-        answer = operate(firstNumber, operator, secondNumber);
-        console.log(`Answer is: ${answer}`);
-        displayDiv.textContent = answer;
+            operator = dummyValueHolder.charAt(operatorPositionIndex);
+            firstNumber = + charArr[0];
+            secondNumber = + charArr[1];
+
+            console.log(`first number: ${firstNumber}`);
+            console.log(`operator: ${operator}`);
+            console.log(`second number: ${secondNumber}`);
+
+            answer = operate(firstNumber, operator, secondNumber);
+            console.log(`Answer is: ${answer}`);
+            displayDiv.textContent = answer + lastChar;
+
+            console.log(`Current display-div: ${displayDiv.textContent}`);
+        } else {
+            dummyValueHolder = displayDiv.textContent.substring(0, displayDiv.textContent.length - 1);
+            const charArr = dummyValueHolder.split(/[+-\/*]/);
+            console.table(charArr);
+
+            let operatorPositionIndex = 0;
+            operatorPositionIndex = dummyValueHolder.search(/[+-\/*]/);
+
+            operator = dummyValueHolder.charAt(operatorPositionIndex);
+            firstNumber = + charArr[0];
+            secondNumber = + charArr[1];
+
+            console.log(`first number: ${firstNumber}`);
+            console.log(`operator: ${operator}`);
+            console.log(`second number: ${secondNumber}`);
+
+            answer = operate(firstNumber, operator, secondNumber);
+            console.log(`Answer is: ${answer}`);
+            displayDiv.textContent = answer;
+
+            console.log(`Current display-div: ${displayDiv.textContent}`);
+        }
     }
     else {
         displayDiv.textContent = displayDiv.textContent.substring(0, displayDiv.textContent.length - 1);
         console.log('akala kusmanda');
     }
-})
+}
 
 acButton.addEventListener('click', function () {
     answer = 0;
@@ -85,6 +130,7 @@ acButton.addEventListener('click', function () {
     firstNumber = 0;
     secondNumber = 0;
     operator = '';
+    operatorCount = 0;
 
     displayDiv.textContent = 0;
 })
@@ -111,14 +157,14 @@ function preventMultiOperator(e) {
 }
 
 function checkExpression() {
-    let currentExpression = displayDiv.textContent;
-    let expressionLength = currentExpression.length;
-    currentExpression = currentExpression.substring(0, expressionLength - 1);
+    let expression = displayDiv.textContent;
+    let expressionLength = expression.length;
+    let newExpression = expression.substring(0, expressionLength - 1);
 
-    console.log(`Current expression: ${displayDiv.textContent}`);
-    console.log(`Dekha re toka: ${currentExpression}`);
+    console.log(`Expression b4: ${expression}`);
+    console.log(`Expression after: ${newExpression}`);
 
-    if (/[*+\/-]/.test(currentExpression)) return true;
+    if (/[*+\/-]/.test(newExpression)) return true;
     else return false;
 }
 
