@@ -50,73 +50,44 @@ allButtons.forEach(button => button.addEventListener('click', function (e) {
 }))
 
 resultButton.addEventListener('click', function () {
-    console.log('banaste dakila gaja');
-    calculate();
+    callEvaluate();
+    operatorCount = 0;
 })
 
 expressionButtons.forEach(button => button.addEventListener('click', function (event) {
+    console.log(`operator count b4: ${operatorCount}`);
     operatorCount++;
+    console.log(`operator count after: ${operatorCount}`);
     if (operatorCount == 2) {
-
-        calculate();
+        callEvaluate();
         operatorCount = 1;
     }
 }))
 
-function calculate() {
+function callEvaluate() {
     if (checkExpression()) {
-        console.log(displayDiv.textContent);
+        console.log(`display  b4 entering eval: ${displayDiv.textContent}`);
+
         let lastChar = displayDiv.textContent.charAt(displayDiv.textContent.length - 1);
         console.log(`last char: ${lastChar}`);
 
         if (lastChar == '+' || lastChar == '-' || lastChar == '/' || lastChar == '*') {
-            console.log(displayDiv.textContent);
-            dummyValueHolder = displayDiv.textContent.substring(0, displayDiv.textContent.length - 1);
-            console.log(dummyValueHolder);
-            const charArr = dummyValueHolder.split(/[+-\/*]/);
-            console.table(charArr);
+            evaluate();
 
-            let operatorPositionIndex = 0;
-            operatorPositionIndex = dummyValueHolder.search(/[+-\/*]/);
-
-            operator = dummyValueHolder.charAt(operatorPositionIndex);
-            firstNumber = + charArr[0];
-            secondNumber = + charArr[1];
-
-            console.log(`first number: ${firstNumber}`);
-            console.log(`operator: ${operator}`);
-            console.log(`second number: ${secondNumber}`);
-
-            answer = operate(firstNumber, operator, secondNumber);
             console.log(`Answer is: ${answer}`);
             displayDiv.textContent = answer + lastChar;
-
             console.log(`Current display-div: ${displayDiv.textContent}`);
         } else {
-            dummyValueHolder = displayDiv.textContent.substring(0, displayDiv.textContent.length - 1);
-            const charArr = dummyValueHolder.split(/[+-\/*]/);
-            console.table(charArr);
+            evaluate();
 
-            let operatorPositionIndex = 0;
-            operatorPositionIndex = dummyValueHolder.search(/[+-\/*]/);
-
-            operator = dummyValueHolder.charAt(operatorPositionIndex);
-            firstNumber = + charArr[0];
-            secondNumber = + charArr[1];
-
-            console.log(`first number: ${firstNumber}`);
-            console.log(`operator: ${operator}`);
-            console.log(`second number: ${secondNumber}`);
-
-            answer = operate(firstNumber, operator, secondNumber);
             console.log(`Answer is: ${answer}`);
             displayDiv.textContent = answer;
-
             console.log(`Current display-div: ${displayDiv.textContent}`);
         }
     }
     else {
         displayDiv.textContent = displayDiv.textContent.substring(0, displayDiv.textContent.length - 1);
+        console.log(`latest display: ${displayDiv.textContent}`)
         console.log('akala kusmanda');
     }
 }
@@ -157,15 +128,44 @@ function preventMultiOperator(e) {
 }
 
 function checkExpression() {
+    let i = 0;
+    let j = 0;
     let expression = displayDiv.textContent;
-    let expressionLength = expression.length;
-    let newExpression = expression.substring(0, expressionLength - 1);
+    let charArr = expression.split('');
+    const lastChar = charArr[charArr.length - 1];
+    // console.table(charArr);
 
-    console.log(`Expression b4: ${expression}`);
-    console.log(`Expression after: ${newExpression}`);
+    if (lastChar == '+' || lastChar == '-' || lastChar == '*' || lastChar == '/') {
+        for (const x in charArr) {
+            if (charArr[x] == '+' || charArr[x] == '-' || charArr[x] == '*' || charArr[x] == '/') i++;
+        }
+    } else {
+        for (const x in charArr) {
+            if (charArr[x] == '+' || charArr[x] == '-' || charArr[x] == '*' || charArr[x] == '/') j++;
+        }
+    }
 
-    if (/[*+\/-]/.test(newExpression)) return true;
+    if (i == 2 || j == 1) return true;
     else return false;
+}
+
+function evaluate() {
+    dummyValueHolder = displayDiv.textContent.substring(0, displayDiv.textContent.length - 1);
+    const charArr = dummyValueHolder.split(/[+-\/*]/);
+    console.table(charArr);
+
+    let operatorPositionIndex = 0;
+    operatorPositionIndex = dummyValueHolder.search(/[+-\/*]/);
+
+    operator = dummyValueHolder.charAt(operatorPositionIndex);
+    firstNumber = + charArr[0];
+    secondNumber = + charArr[1];
+
+    console.log(`first number: ${firstNumber}`);
+    console.log(`operator: ${operator}`);
+    console.log(`second number: ${secondNumber}`);
+
+    answer = operate(firstNumber, operator, secondNumber);
 }
 
 function operate(firstNumber, operation, secondNumber) {
@@ -173,22 +173,22 @@ function operate(firstNumber, operation, secondNumber) {
     switch (operation) {
         case '+':
             result = add(firstNumber, secondNumber);
-            console.log(result);
+            // console.log(result);
             break;
 
         case '-':
             result = sub(firstNumber, secondNumber);
-            console.log(result);
+            // console.log(result);
             break;
 
         case '/':
             result = div(firstNumber, secondNumber);
-            console.log(result);
+            // console.log(result);
             break;
 
         case '*':
             result = multi(firstNumber, secondNumber);
-            console.log(result);
+        // console.log(result);
 
         default:
             break;
